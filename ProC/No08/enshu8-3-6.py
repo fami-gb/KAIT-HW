@@ -25,8 +25,8 @@ rd1.pack(anchor=tk.W, pady=5)
 rd2 = tk.Radiobutton(root, text="醤油ラーメン(1300円)", variable=mainDish, value=1300)
 rd2.pack(anchor=tk.W, pady=5)
 
-rd2 = tk.Radiobutton(root, text="とんこつラーメン(1500円)", variable=mainDish, value=1500)
-rd2.pack(anchor=tk.W, pady=5)
+rd3 = tk.Radiobutton(root, text="とんこつラーメン(1500円)", variable=mainDish, value=1500)
+rd3.pack(anchor=tk.W, pady=5)
 
 lbTopping = tk.Label(root, text="トッピングを選択してください:")
 lbTopping.pack(pady=10)
