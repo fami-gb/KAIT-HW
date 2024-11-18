@@ -7,6 +7,7 @@ root.geometry("300x400")
 mainDish = tk.IntVar()
 mainDish.set(1000)
 
+# BooleanVar()で取得してもいいが、onvalueで値がウィジェットに紐付けされてる方が可読性が上がりそう
 topping1 = tk.IntVar()
 topping2 = tk.IntVar()
 topping3 = tk.IntVar()
@@ -46,4 +47,3 @@ lbSum = tk.Label(root, text="ここに合計金額が表示されます。")
 lbSum.pack(pady=10)
 
 tk.mainloop()
-
