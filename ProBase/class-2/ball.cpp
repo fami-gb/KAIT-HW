@@ -63,7 +63,7 @@ int main() {
 	{
 		printf("名前");
 		Sleep(100);
-		printf("\b\b\b\b\b\b　　　");
+		printf("\b\b\b\b　　　");
 	}
 	printf("名前\n");
 
