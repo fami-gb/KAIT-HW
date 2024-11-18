@@ -5,6 +5,7 @@ root.title("数値を二倍にして表示")
 root.geometry("300x300")
 
 def twice():
+    entry2.delete(0, tk.END)
     entry2.insert(0,int(entry1.get())*2)
 
 entry1 = tk.Entry(root, width=20)
