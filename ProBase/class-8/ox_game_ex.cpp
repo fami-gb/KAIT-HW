@@ -6,7 +6,7 @@
 void print_grid();
 void print_marks(int marked[3][3]);
 bool judge(int marked[3][3], int turn);
-int input_marks(int marked[3][3], int turn);
+void input_marks(int marked[3][3], int* turn);
 // チャレンジ1, 2,3
 bool isValid(int gx, int gy, int num);
 bool isDraw(int multi[8]);
@@ -37,7 +37,7 @@ int main() {
 
 		if (judge(marked, turn)) break;
 
-		turn = input_marks(marked, turn);
+		input_marks(marked, &turn);
 	}
 
 	return 0;
@@ -67,10 +67,10 @@ bool judge(int marked[3][3], int turn) {
 	multi[1] = marked[1][0] * marked[1][1] * marked[1][2];
 	multi[2] = marked[2][0] * marked[2][1] * marked[2][2];
 	multi[3] = marked[0][0] * marked[1][0] * marked[2][0];
-	multi[4] = marked[0][1] * marked[1][1] * marked[1][2];
+	multi[4] = marked[0][1] * marked[1][1] * marked[1][1];
 	multi[5] = marked[0][2] * marked[1][2] * marked[2][2];
 	multi[6] = marked[0][0] * marked[1][1] * marked[2][2];
-	multi[7] = marked[0][2] * marked[1][1] * marked[2][0];
+	multi[7] = marked[0][2] * marked[1][2] * marked[2][0];
 
 	int winner = 0;
 	for (int i = 0; i < 8; i++) {
@@ -94,22 +94,22 @@ bool judge(int marked[3][3], int turn) {
 }
 
 // 練習4
-int input_marks(int marked[3][3], int turn) {
+void input_marks(int marked[3][3], int* turn) {
 	int gy, gx;
 	char c;
 
 	pos(10, 1);
 	printf("\x1b[K");
-	printf("%sの番です。マス目を指定してください：", ox[turn % 2 + 1]);
+	printf("%sの番です。マス目を指定してください：", ox[*turn % 2 + 1]);
 	(void)scanf("%c,%d", &c, &gx);
 	rewind(stdin);
 	gy = c - 97;
 	gx--;
 	if (!isValid(gx, gy, marked[gy][gx])) {
-		return turn;
+		--*turn;
 	}
-	marked[gy][gx] = turn % 2 + 1;
-	return ++turn;
+	marked[gy][gx] = *turn % 2 + 1;
+	++*turn;
 }
 
 bool isValid(int gx, int gy, int num) {
