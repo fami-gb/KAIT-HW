@@ -67,10 +67,10 @@ bool judge(int marked[3][3], int turn) {
 	multi[1] = marked[1][0] * marked[1][1] * marked[1][2];
 	multi[2] = marked[2][0] * marked[2][1] * marked[2][2];
 	multi[3] = marked[0][0] * marked[1][0] * marked[2][0];
-	multi[4] = marked[0][1] * marked[1][1] * marked[1][1];
+	multi[4] = marked[0][1] * marked[1][1] * marked[1][2];
 	multi[5] = marked[0][2] * marked[1][2] * marked[2][2];
 	multi[6] = marked[0][0] * marked[1][1] * marked[2][2];
-	multi[7] = marked[0][2] * marked[1][2] * marked[2][0];
+	multi[7] = marked[0][2] * marked[1][1] * marked[2][0];
 
 	int winner = 0;
 	for (int i = 0; i < 8; i++) {
