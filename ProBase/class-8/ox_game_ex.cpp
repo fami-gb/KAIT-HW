@@ -37,7 +37,7 @@ int main() {
 
 		if (judge(marked, turn)) break;
 
-		input_marks(marked, turn);
+		turn = input_marks(marked, turn);
 	}
 
 	return 0;
@@ -109,7 +109,7 @@ int input_marks(int marked[3][3], int turn) {
 		return turn;
 	}
 	marked[gy][gx] = turn % 2 + 1;
-	turn++;
+	return ++turn;
 }
 
 bool isValid(int gx, int gy, int num) {
