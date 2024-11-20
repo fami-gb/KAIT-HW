@@ -105,11 +105,10 @@ void input_marks(int marked[3][3], int* turn) {
 	rewind(stdin);
 	gy = c - 97;
 	gx--;
-	if (!isValid(gx, gy, marked[gy][gx])) {
-		--*turn;
-	}
+	if (!isValid(gx, gy, marked[gy][gx])) return;
 	marked[gy][gx] = *turn % 2 + 1;
 	++*turn;
+	
 }
 
 bool isValid(int gx, int gy, int num) {
