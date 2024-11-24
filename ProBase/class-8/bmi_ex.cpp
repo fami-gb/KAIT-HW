@@ -4,7 +4,6 @@ void print_title();
 float input_value(const char* str);
 void cal_bmi(float shincho, float taiju);
 float cal_best_taiju(float shincho);
-void check_himan(float himan_do);
 
 // チャレンジ1
 float cal_himan_do(float taiju, float best);
@@ -19,6 +18,7 @@ int main() {
 	float best_taiju = cal_best_taiju(shincho);
 	//チャレンジ用
 	float himan_do = cal_himan_do(taiju, best_taiju);
+	printf("あなたの肥満度は%4.1f%%です。\n", himan_do);
 	check_himan(himan_do);
 
 	return 0;
@@ -51,7 +51,7 @@ float cal_best_taiju(float shincho) {
 }
 
 float cal_himan_do(float taiju, float best) {
-	float himan_do = ((taiju - best) / 100) * 100;
+	float himan_do = ((taiju - best) / best) * 100;
 	return himan_do;
 }
 
