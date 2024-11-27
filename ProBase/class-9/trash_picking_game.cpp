@@ -56,6 +56,7 @@ int main() {
 }
 
 void input_key(int& ypos, int& xpos, int& figure) {
+	// 224 && 十字キー
 	if (kbhit() != 0) {
 		int key = getch();
 		if (key == 224) {
@@ -72,7 +73,8 @@ void input_key(int& ypos, int& xpos, int& figure) {
 			if (key == 80) {
 				ypos++;
 			}
-			figure = (figure + 1) % 2;
+			// figure = (figure + 1) % 2;
+			figure ^= 1; // xorで0と1を切り替え
 		}
 	}
 }
@@ -85,6 +87,7 @@ void walk_baltan(int ypos, int xpos, int figure) {
 	}
 }
 
+// 練習5
 void init_screen(short width, short height) {
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	SMALL_RECT size = { 0, 0, width - 1, height - 1 };
@@ -93,7 +96,9 @@ void init_screen(short width, short height) {
 	SetConsoleScreenBufferSize(handle, coord);
 }
 
+// 練習6
 bool check_interval_time() {
+	// static: プログラムが終了するまで値が保持される
 	static clock_t start_time = 0;
 	static double lap_old = 0.0;
 	if (start_time == 0)start_time = clock();
@@ -105,13 +110,15 @@ bool check_interval_time() {
 	return true;
 }
 
+// 練習7
 void throw_out_trash(int map[HEIGHT][WIDTH]) {
 	if (check_interval_time() == false) return;
-	int xp = rand() % (WIDTH - 1) + 1;
-	int yp = rand() % (HEIGHT - 1) + 1;
+	int xp = rand() % (WIDTH - 1) + 1; // 練習10
+	int yp = rand() % (HEIGHT - 1) + 1; // 練習11
 	map[yp][xp] = 1;
 }
 
+// 練習8
 void print_trash(int map[HEIGHT][WIDTH]) {
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
@@ -120,6 +127,7 @@ void print_trash(int map[HEIGHT][WIDTH]) {
 	}
 }
 
+// 練習9
 void check_trash_picking(int ypos, int xpos, int map[HEIGHT][WIDTH]) {
 	for (int y = ypos; y < ypos + 3; y++) {
 		for (int x = xpos + 2; x < xpos + 5; x++) {

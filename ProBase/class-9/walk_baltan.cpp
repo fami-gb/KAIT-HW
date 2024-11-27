@@ -29,7 +29,7 @@ int main() {
 		printf("\x1b[2J");
 		input_key(ypos, xpos, fig);
 		walk_baltan(ypos, xpos, fig);
-		Sleep(10);
+		Sleep(10); // 練習3 100ms -> 10ms
 	}
 
 	printf("\x1b[?25l");
@@ -38,6 +38,7 @@ int main() {
 }
 
 void input_key(int& ypos, int& xpos, int& figure) {
+	// 224 && 十字キー
 	if (kbhit() != 0) {
 		int key = getch();
 		if (key == 224) {
@@ -49,12 +50,13 @@ void input_key(int& ypos, int& xpos, int& figure) {
 				xpos++;
 			}
 			if (key == 72) {
-				ypos--;
+				ypos--; // 練習1
 			}
 			if (key == 80) {
-				ypos++;
+				ypos++; // 練習2
 			}
-			figure = (figure + 1) % 2;
+			// figure = (figure + 1) % 2;
+			figure ^= 1; // xorで0と1を切り替え
 		}
 	}
 }
