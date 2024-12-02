@@ -113,8 +113,8 @@ bool check_interval_time() {
 // 練習7
 void throw_out_trash(int map[HEIGHT][WIDTH]) {
 	if (check_interval_time() == false) return;
-	int xp = rand() % (WIDTH - 1) + 1; // 練習10
-	int yp = rand() % (HEIGHT - 1) + 1; // 練習11
+	int xp = rand() % (WIDTH - 1); // 練習10
+	int yp = rand() % (HEIGHT - 1); // 練習11
 	map[yp][xp] = 1;
 }
 
