@@ -99,13 +99,13 @@ void print_trash(int map[HEIGHT][WIDTH]) {
 
 // 練習9
 int check_trash_picking(int ypos, int xpos, int map[HEIGHT][WIDTH]) {
-	PlaySoundA("sound.wav", NULL, SND_FILENAME | SND_ASYNC);
 	static int trash_count = 0;
 	for (int y = ypos; y < ypos + 3; y++) {
 		for (int x = xpos + 2; x < xpos + 5; x++) {
 			if (map[y - 1][x - 1] == 1) {
 				map[y - 1][x - 1] = 0;
 				trash_count++;
+				PlaySoundA("sound.wav", NULL, SND_FILENAME | SND_ASYNC);
 			}
 		}
 	}

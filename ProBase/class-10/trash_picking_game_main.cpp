@@ -20,10 +20,7 @@ int main() {
 		print_trash(trash_map);
 		int trash_count = check_trash_picking(ypos, xpos, trash_map);
 		print_score(trash_count);
-		if (print_remaining_time() == true) {
-			PlaySoundA("gako.wav", NULL, SND_FILENAME | SND_ASYNC);
-			break;
-		}
+		if (print_remaining_time() == true) break;
 
 		Sleep(100);
 	}
