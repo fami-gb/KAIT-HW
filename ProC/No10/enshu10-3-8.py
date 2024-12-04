@@ -32,7 +32,7 @@ def showGraph():
     ax.legend()
     ax.set_title("グラフの表示")
     ax.set_xlabel("X軸")
-    ax.set_ylabel("y軸")
+    ax.set_ylabel("Y軸")
     canvas.draw()
 
 ckb_bar = tk.Checkbutton(root, text="棒グラフ", variable=var_bar, font=20)
