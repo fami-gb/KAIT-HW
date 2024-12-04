@@ -22,6 +22,7 @@ int main() {
 		print_score(trash_count);
 		if (print_remaining_time() == true) {
 			PlaySoundA("gako.wav", NULL, SND_FILENAME | SND_ASYNC);
+			break;
 		}
 
 		Sleep(100);
