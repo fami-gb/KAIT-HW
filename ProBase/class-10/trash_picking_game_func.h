@@ -21,12 +21,12 @@ void init_screen(short width, short height);
 bool check_interval_time();
 void throw_out_trash(int map[HEIGHT][WIDTH]);
 void print_trash(int map[HEIGHT][WIDTH]);
-int check_trash_picking(int ypos, int xpos, int map[HEIGHT][WIDTH]);
+int check_trash_picking(int ypos, int xpos, int map[HEIGHT][WIDTH]); // 練習6
 void start_time();
 double get_time();
 //void print_remaining_time();
-bool print_remaining_time();
-void wait_to_push_esc_key();
-void print_score(int score);
+bool print_remaining_time(); // 練習3, 4
+void wait_to_push_esc_key(); // 練習5
+void print_score(int score); // 練習7
 
 #endif
