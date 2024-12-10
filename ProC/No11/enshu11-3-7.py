@@ -28,7 +28,7 @@ def changeGraph():
     if GraphType == 1:
         ax.plot(x, y, label="折れ線グラフ")
     elif GraphType == 2:
-        ax.plot(x, y, label="棒グラフ")
+        ax.bar(x, y, label="棒グラフ")
     ax.legend()
     canvas.draw()
     
