@@ -1,57 +1,32 @@
-#include"Fighter.h"
+#include<stdio.h>
 
-// コンストラクタ
-Fighter::Fighter(int y_, int x_, const char* shape_, int size_)
-	:xpos(x_), ypos(y_), shape(shape_), size(size_){}
+#include"shooting_game_def.h"
+#include"Bullet.h"
 
-void Fighter::update_pos(int dir) {
-	move_dir = dir;
-	xpos += move_dir; // 戦闘機の位置を更新
-	if (get_left_x() < 1) xpos = 1; // 戦闘機が左端を超えた時
-	if (get_right_x() > WIDTH) xpos = WIDTH - (size - 1); // 戦闘機が右端を超えた時
-}
+#ifndef __FIGHTER_CLASS__
+#define __FIGHTER_CLASS__
 
-// 弾丸の発射
-void Fighter::shoot(Bullet& blt) {
-	blt.set_init_pos(get_y(), get_center_x());
-}
+class Fighter {
+private:
+	const char* shape; // 戦闘機の形状
+	int size;			// 戦闘機の大きさ
+	int xpos;			// 戦闘機の左端のX座標
+	int ypos;			// 戦闘機の右端のY座標
+	int move_dir = 0;	// 移動方向
+public:
+	Fighter() = delete;
+	Fighter(int y, int x, const char* shape, int size);
 
-// 当たり判定
-bool Fighter::check_hit(Bullet blt) {
-	if (blt.get_y() == get_y()) {
-		if (blt.get_right_x() >= get_left_x() && blt.get_left_x() <= get_right_x())
-			return true;
-	}
-	return false;
-}
+	void update_pos(int dir); // 描画位置を更新する。引数は移動方向と移動量
+	void shoot(Bullet& blt); // 弾丸を発射する
+	bool check_hit(Bullet blt); // 弾丸に当たっているかをチェックする
+	void draw();				// 戦闘機を描画する
 
-// 描画する
-void Fighter::draw() {
-	printf("\x1b[%d;%dH%s", ypos, xpos, shape);
-}
+	int get_y();				// 戦闘機のY座標
+	int get_left_x();			// 戦闘機の左端のX座標
+	int get_right_x();			// 戦闘機の右端のX座標
+	int get_center_x();			// 戦闘機の中心のX座標
+	int get_size();				// 戦闘機の大きさ
+};
 
-// 戦闘機のY座標を取得する
-int Fighter::get_y() {
-	return ypos;
-}
-
-// 戦闘機の左端のX座標を取得する
-int Fighter::get_left_x() {
-	return xpos;
-}
-
-// 戦闘機の右端のX座標を取得する
-int Fighter::get_right_x() {
-	return xpos + size - 1;
-}
-
-// 戦闘機の中心のX座標を取得する
-int Fighter::get_center_x() {
-	if (size % 2 == 0) return xpos + (size / 2) - 1;
-	else return xpos + (size / 2);
-}
-
-// 戦闘機の大きさを取得する
-int Fighter::get_size() {
-	return size;
-}
+#endif
