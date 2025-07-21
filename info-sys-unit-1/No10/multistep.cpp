@@ -1,0 +1,49 @@
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
+
+sensor_msgs::msg::LaserScan::SharedPtr latest_scan;
+
+void callback_scan (const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+    latest_scan = msg;
+}
+
+int main (int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    auto node = rclcpp::Node::make_shared("wall_detector");
+    auto sub_scan = node->create_subscription<sensor_msgs::msg::LaserScan>("scan", 1, callback_scan);
+    auto pub_cmd_vel = node->create_publisher<geometry_msgs::msg::TwistStamped>("cmd_vel", 1);
+    rclcpp::WallRate loop(10);
+
+    while (rclcpp::ok()) {
+        // キューに溜まったコールバックを実行
+        rclcpp::spin_some(node); // LiDARからデータを取得
+
+        if (latest_scan) {
+            // 0°方向の測定値を表示
+            RCLCPP_INFO(rclcpp::get_logger("loop"), "%f [m]", latest_scan->ranges[270]);
+
+            // メッセージの作成
+            auto msg_cmd_vel = geometry_msgs::msg::TwistStamped();
+            msg_cmd_vel.header.stamp = node->get_clock()->now();
+            msg_cmd_vel.header.frame_id = "base_footprint";
+            
+            double distance = latest_scan->ranges[270];
+            msg_cmd_vel.twist.linear.x = 0.1;
+
+            if (distance <= 0.3) msg_cmd_vel.twist.angular.z = 0.6;
+            else if (0.3 < distance && distance <= 0.4) msg_cmd_vel.twist.angular.z = 0.3;
+            else if (0.4 < distance && distance <= 0.5) msg_cmd_vel.twist.angular.z = 0.2;
+            else if (distance == 0.5) msg_cmd_vel.twist.angular.z = 0;
+            else if (0.5 < distance && distance <= 0.6) msg_cmd_vel.twist.angular.z = -0.2;
+            else if (0.6 < distance && distance <= 0.7) msg_cmd_vel.twist.angular.z = -0.4;
+            else msg_cmd_vel.twist.angular.z = -0.6;
+            
+            // メッセージの送信
+            pub_cmd_vel->publish(msg_cmd_vel);
+        }
+        loop.sleep();
+    }
+    rclcpp::shutdown();
+    return 0;
+}
