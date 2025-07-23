@@ -39,7 +39,7 @@ int main (int argc, char** argv) {
         double d_270 = latest_scan->ranges[270];
         double d_315 = latest_scan->ranges[315]*sin(45*M_PI/180.0);
 
-        msg_cmd_vel.twist.linear.x = 0.3
+        msg_cmd_vel.twist.linear.x = 0.6;
         msg_cmd_vel.twist.angular.z = 2.0*((0.5 - d_270) + (0.5 - d_315));
 
 	    // メッセージの送信
